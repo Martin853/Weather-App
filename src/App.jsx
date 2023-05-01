@@ -11,7 +11,7 @@ export const App = () => {
 
   useEffect(() => {
     fetch(
-      `http://api.weatherapi.com/v1/current.json?key=b04816e7eca543749c6121831231004&q=${location}&aqi=no`
+      `https://api.weatherapi.com/v1/current.json?key=b04816e7eca543749c6121831231004&q=${location}&aqi=no`
     )
       .then((response) => response.json())
       .then((data) => setWeatherData(data));
