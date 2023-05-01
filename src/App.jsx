@@ -24,8 +24,6 @@ export const App = () => {
     setLocation(value);
   };
 
-  console.log(weatherData);
-
   return (
     <div className="flex flex-col bg-indigo-400 gap-2">
       <Navbar />
@@ -35,7 +33,7 @@ export const App = () => {
         setUnit={setUnit}
       />
       {weatherData && weatherData.location ? (
-        <div className="flex flex-col px-2 mx-auto gap-4">
+        <div className="flex flex-col px-2 mx-auto gap-4 md:flex-row">
           <Location
             country={weatherData.location.country}
             city={weatherData.location.name}
