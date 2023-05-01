@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Search } from './components/Search';
 import { Location } from './components/Location';
+import { Temperature } from './components/Temperature';
 
 export const App = () => {
   const [weatherData, setWeatherData] = useState();
@@ -25,58 +26,42 @@ export const App = () => {
 
   console.log(weatherData);
 
-  if (weatherData === undefined) {
-    return (
-      <div className="flex flex-col">
-        <Navbar />
-        <div className="w-full h-full bg-indigo-400 flex flex-col items-center gap-2">
-          <Search
-            handleLocationChange={handleLocationChange}
-            unit={unit}
-            setUnit={setUnit}
+  return (
+    <div className="flex flex-col bg-indigo-400 gap-2">
+      <Navbar />
+      <Search
+        handleLocationChange={handleLocationChange}
+        unit={unit}
+        setUnit={setUnit}
+      />
+      {weatherData && weatherData.location ? (
+        <div className="flex flex-col px-2 mx-auto gap-4">
+          <Location
+            country={weatherData.location.country}
+            city={weatherData.location.name}
+            region={weatherData.location.region}
+            localTime={weatherData.location.localtime}
           />
-          <h1 className="font-openSans text-2xl font-bold text-white justify-self-center">
+          <Temperature
+            unit={unit}
+            image={weatherData.current.condition.icon}
+            condition={weatherData.current.condition.text}
+            temperatureC={weatherData.current.temp_c}
+            temperatureFeelsC={weatherData.current.feelslike_c}
+            temperatureF={weatherData.current.temp_f}
+            temperatureFeelsF={weatherData.current.feelslike_f}
+            uvIndex={weatherData.current.uv}
+            humidity={weatherData.current.humidity}
+            windSpeed={weatherData.current.wind_kph}
+          />
+        </div>
+      ) : (
+        <div className="w-full">
+          <h1 className="text-center font-openSans text-2xl font-bold text-white justify-self-center">
             No data
           </h1>
         </div>
-      </div>
-    );
-  }
-
-  if (weatherData.error) {
-    return (
-      <div className="flex flex-col">
-        <Navbar />
-        <div className="w-full h-full bg-indigo-400 flex flex-col items-center gap-2">
-          <Search
-            handleLocationChange={handleLocationChange}
-            unit={unit}
-            setUnit={setUnit}
-          />
-          <h1 className="font-openSans text-2xl font-bold text-white justify-self-center">
-            No data
-          </h1>
-        </div>
-      </div>
-    );
-  }
-
-  if (weatherData.location) {
-    return (
-      <div className="flex flex-col bg-indigo-400 gap-2">
-        <Navbar />
-        <Search
-          handleLocationChange={handleLocationChange}
-          unit={unit}
-          setUnit={setUnit}
-        />
-        <Location
-          country={weatherData.location.country}
-          city={weatherData.location.name}
-          region={weatherData.location.region}
-          localTime={weatherData.location.localtime}
-        />
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 };

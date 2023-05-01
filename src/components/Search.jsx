@@ -13,7 +13,7 @@ export const Search = (props) => {
       {props.unit === 'Celsius' ? (
         <button
           onClick={() => {
-            props.setUnit('Farenheit');
+            props.setUnit('Fahrenheit');
           }}
           className="font-openSans outline-none p-1 rounded-2xl border-2 text-lg font-semibold border-green-800 hover:bg-green-800 text-white transition-all duration-300 ease-linear cursor-pointer"
         >
