@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Location } from './components/Location';
 import { Navbar } from './components/Navbar';
+import { Search } from './components/Search';
 
 export const App = () => {
   const [weatherData, setWeatherData] = useState();
@@ -17,9 +17,11 @@ export const App = () => {
   console.log(weatherData);
 
   return (
-    <div>
+    <div className="flex flex-col">
       <Navbar />
-      <Location />
+      <div className="w-full h-full">
+        <Search />
+      </div>
     </div>
   );
 };
