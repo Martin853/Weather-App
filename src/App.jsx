@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Search } from './components/Search';
+import { Location } from './components/Location';
 
 export const App = () => {
   const [weatherData, setWeatherData] = useState();
@@ -22,18 +23,60 @@ export const App = () => {
     setLocation(value);
   };
 
-  // console.log(weatherData);
+  console.log(weatherData);
 
-  return (
-    <div className="flex flex-col">
-      <Navbar />
-      <div className="w-full h-full bg-indigo-400">
+  if (weatherData === undefined) {
+    return (
+      <div className="flex flex-col">
+        <Navbar />
+        <div className="w-full h-full bg-indigo-400 flex flex-col items-center gap-2">
+          <Search
+            handleLocationChange={handleLocationChange}
+            unit={unit}
+            setUnit={setUnit}
+          />
+          <h1 className="font-openSans text-2xl font-bold text-white justify-self-center">
+            No data
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (weatherData.error) {
+    return (
+      <div className="flex flex-col">
+        <Navbar />
+        <div className="w-full h-full bg-indigo-400 flex flex-col items-center gap-2">
+          <Search
+            handleLocationChange={handleLocationChange}
+            unit={unit}
+            setUnit={setUnit}
+          />
+          <h1 className="font-openSans text-2xl font-bold text-white justify-self-center">
+            No data
+          </h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (weatherData.location) {
+    return (
+      <div className="flex flex-col bg-indigo-400 gap-2">
+        <Navbar />
         <Search
           handleLocationChange={handleLocationChange}
           unit={unit}
           setUnit={setUnit}
         />
+        <Location
+          country={weatherData.location.country}
+          city={weatherData.location.name}
+          region={weatherData.location.region}
+          localTime={weatherData.location.localtime}
+        />
       </div>
-    </div>
-  );
+    );
+  }
 };
