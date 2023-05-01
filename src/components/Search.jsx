@@ -1,9 +1,10 @@
 import React from 'react';
 
-export const Search = () => {
+export const Search = (props) => {
   return (
     <div className="w-full h-24 mt-2 flex flex-col justify-center items-center gap-4">
       <input
+        onChange={props.handleLocationChange}
         type="text"
         placeholder="Search for a city"
         className="font-openSans outline-none border-2 p-1 rounded-xl"
