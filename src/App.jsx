@@ -5,7 +5,7 @@ import { Search } from './components/Search';
 export const App = () => {
   const [weatherData, setWeatherData] = useState();
   const [location, setLocation] = useState('London');
-  const [unit, setUnit] = useState('Celcius');
+  const [unit, setUnit] = useState('Celsius');
 
   useEffect(() => {
     fetch(
@@ -28,7 +28,11 @@ export const App = () => {
     <div className="flex flex-col">
       <Navbar />
       <div className="w-full h-full bg-indigo-400">
-        <Search handleLocationChange={handleLocationChange} />
+        <Search
+          handleLocationChange={handleLocationChange}
+          unit={unit}
+          setUnit={setUnit}
+        />
       </div>
     </div>
   );
